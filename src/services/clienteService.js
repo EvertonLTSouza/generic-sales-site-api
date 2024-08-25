@@ -1,21 +1,26 @@
-import * as ClienteModel from '../models/clienteModel.js';
+export class ClienteService {
+    constructor(clienteModel) {
+        this.clienteModel = clienteModel;
+    }
 
-export const criarCliente = async (cliente) => {
-    return await ClienteModel.criarCliente(cliente);
-};
+    criarCliente = async (cliente) => {
+        return await this.clienteModel.criarCliente(cliente);
+    };
+    
+    obterClientes = async () => {
+        return await this.clienteModel.obterClientes();
+    };
+    
+    obterClientePorId = async (id) => {
+        return await this.clienteModel.obterClientePorId(id);
+    };
+    
+    atualizarCliente = async (id, cliente) => {
+        await this.clienteModel.atualizarCliente(id, cliente);
+    };
+    
+    deletarCliente = async (id) => {
+        await this.clienteModel.deletarCliente(id);
+    }
 
-export const obterClientes = async () => {
-    return await ClienteModel.obterClientes();
-};
-
-export const obterClientePorId = async (id) => {
-    return await ClienteModel.obterClientePorId(id);
-};
-
-export const atualizarCliente = async (id, cliente) => {
-    await ClienteModel.atualizarCliente(id, cliente);
-};
-
-export const deletarCliente = async (id) => {
-    await ClienteModel.deletarCliente(id);
 };

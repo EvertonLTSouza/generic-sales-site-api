@@ -1,12 +1,13 @@
 import express from 'express';
-import * as ClienteController from '../controllers/clienteController.js';
+import { container } from '../config/di-container.js';
 
 const router = express.Router();
+const clienteController = container.get('clienteController');
 
-router.post('/', ClienteController.criarCliente);
-router.get('/', ClienteController.obterClientes);
-router.get('/:id', ClienteController.obterClientePorId);
-router.put('/:id', ClienteController.atualizarCliente);
-router.delete('/:id', ClienteController.deletarCliente);
+router.post('/clientes/', clienteController.criarCliente);
+router.get('/clientes/', clienteController.obterClientes);
+router.get('/clientes/:id', clienteController.obterClientePorId);
+router.put('/clientes/:id', clienteController.atualizarCliente);
+router.delete('/clientes/:id', clienteController.deletarCliente);
 
 export default router;
