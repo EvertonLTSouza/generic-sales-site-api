@@ -6,6 +6,10 @@ import { ProdutoService } from '../services/produtoService.js';
 import { ProdutoModel } from '../models/produtoModel.js';
 import { ProdutoController } from '../controllers/produtoController.js';
 
+import { EstoqueService } from '../services/estoqueService.js';
+import { EstoqueModel } from '../models/estoqueModel.js';
+import { EstoqueController } from '../controllers/estoqueController.js';
+
 import connect from './db.js';
 
 export class DIContainer {
@@ -17,16 +21,21 @@ export class DIContainer {
   registerDependencies() {
     // Configura a conexão com o banco de dados
     this.dependencies.set('dbConnection', connect);
-    
-    // Registra o modelo e serviço de Cliente
+
+    // Registra o modelo, serviço e controlador de Cliente
     this.dependencies.set('clienteModel', new ClienteModel(this.get('dbConnection')));
     this.dependencies.set('clienteService', new ClienteService(this.get('clienteModel')));
     this.dependencies.set('clienteController', new ClienteController(this.get('clienteService')));
 
-    // Registra o modelo e serviço de Produto
+    // Registra o modelo, serviço e controlador de Produto
     this.dependencies.set('produtoModel', new ProdutoModel(this.get('dbConnection')));
     this.dependencies.set('produtoService', new ProdutoService(this.get('produtoModel')));
     this.dependencies.set('produtoController', new ProdutoController(this.get('produtoService')));
+
+    // Registra o modelo, serviço e controlador de Estoque
+    this.dependencies.set('estoqueModel', new EstoqueModel(this.get('dbConnection')));
+    this.dependencies.set('estoqueService', new EstoqueService(this.get('estoqueModel')));
+    this.dependencies.set('estoqueController', new EstoqueController(this.get('estoqueService')));
   }
 
   get(key) {
