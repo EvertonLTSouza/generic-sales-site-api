@@ -10,6 +10,12 @@ import { EstoqueService } from '../services/estoqueService.js';
 import { EstoqueModel } from '../models/estoqueModel.js';
 import { EstoqueController } from '../controllers/estoqueController.js';
 
+import { OfertaModel } from '../models/ofertaModel.js';
+import { OfertaService } from '../services/ofertaService.js';
+import { OfertaController } from '../controllers/ofertaController.js';
+
+import { TipoOfertaModel } from '../models/tipoOfertaModel.js';
+
 import connect from './db.js';
 
 export class DIContainer {
@@ -36,6 +42,17 @@ export class DIContainer {
     this.dependencies.set('estoqueModel', new EstoqueModel(this.get('dbConnection')));
     this.dependencies.set('estoqueService', new EstoqueService(this.get('estoqueModel')));
     this.dependencies.set('estoqueController', new EstoqueController(this.get('estoqueService')));
+
+    // Registra o modelo, serviço e controlador de Oferta
+    this.dependencies.set('ofertaModel', new OfertaModel(this.get('dbConnection')));
+    this.dependencies.set('tipoOfertaModel', new TipoOfertaModel(this.get('dbConnection')));
+    this.dependencies.set('ofertaService', new OfertaService(
+      this.get('ofertaModel'), 
+      this.get('clienteModel'), 
+      this.get('produtoModel'), 
+      this.get('tipoOfertaModel')
+    ));
+    this.dependencies.set('ofertaController', new OfertaController(this.get('ofertaService')));
   }
 
   get(key) {
