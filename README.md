@@ -57,6 +57,16 @@ Este é o README da API de Gerenciamento de Site Genérico. A API fornece funcio
 
 - **GET /api/tipos-oferta**: Obtém todos os tipos de oferta disponíveis.
 
+## Endpoints de Transações
+
+As transações representam operações de compra e venda entre clientes e produtos. Elas são geradas a partir de ofertas e envolvem validações de estoque e de registros de clientes.
+
+### 1. Obter Transações por Cliente
+
+- **Endpoint**: `/api/transacoes/cliente/:clienteId`
+- **Método**: `GET`
+- **Descrição**: Retorna todas as transações relacionadas a um cliente específico. A resposta identifica se a transação é uma "VENDA" ou "COMPRA" com base na posição do cliente (como comprador ou vendedor).
+
 ## Como Executar
 
 1. Clone o repositório para sua máquina local.

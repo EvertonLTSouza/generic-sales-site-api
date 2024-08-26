@@ -18,6 +18,10 @@ import { TipoOfertaModel } from '../models/tipoOfertaModel.js';
 import { TipoOfertaService } from '../services/tipoOfertaService.js';
 import { TipoOfertaController } from '../controllers/tipoOfertaController.js';
 
+import { TransacaoModel } from '../models/transacaoModel.js';
+import { TransacaoService } from '../services/transacaoService.js';
+import { TransacaoController } from '../controllers/transacaoController.js';
+
 import connect from './db.js';
 
 export class DIContainer {
@@ -53,12 +57,21 @@ export class DIContainer {
     // Registra o modelo, serviço e controlador de Oferta
     this.dependencies.set('ofertaModel', new OfertaModel(this.get('dbConnection')));
     this.dependencies.set('ofertaService', new OfertaService(
-      this.get('ofertaModel'), 
-      this.get('clienteModel'), 
-      this.get('produtoModel'), 
-      this.get('tipoOfertaModel')
-    ));
+                                                              this.get('ofertaModel'), 
+                                                              this.get('clienteModel'), 
+                                                              this.get('produtoModel'), 
+                                                              this.get('tipoOfertaModel'))
+                                                            );
     this.dependencies.set('ofertaController', new OfertaController(this.get('ofertaService')));
+
+    // Registra o modelo, serviço e controlador de Transacao
+    this.dependencies.set('transacaoModel', new TransacaoModel(this.get('dbConnection')));
+    this.dependencies.set('transacaoService', new TransacaoService(
+                                                                    this.get('transacaoModel'),
+                                                                    this.get('ofertaModel'),
+                                                                    this.get('estoqueModel'))
+                                                                  );
+    this.dependencies.set('transacaoController', new TransacaoController(this.get('transacaoService')));
   }
 
   get(key) {

@@ -51,6 +51,11 @@ export class OfertaModel {
       );
       return result.affectedRows;
     }
+
+    async deleteOfertaPorId(ofertaId) {
+      const connection = await this.dbConnection.connect();
+      await connection.execute(`DELETE FROM oferta WHERE id = ?;`, [ofertaId]);
+    }
   
     async ofertaExists(id_cliente, id_produto) {
       const connection = await this.dbConnection.connect();
