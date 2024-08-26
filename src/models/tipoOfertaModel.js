@@ -11,5 +11,13 @@ export class TipoOfertaModel {
       );
       return rows[0];
     }
+
+    async getAllTiposOferta() {
+      const connection = await this.dbConnection.connect();
+      const [rows] = await connection.execute(`
+        SELECT * FROM tipo_oferta
+      `);
+      return rows;
+    }
   }
   
